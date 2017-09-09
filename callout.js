@@ -1,5 +1,5 @@
 import './button.js'
-import { html, render } from './node_modules/lit-html/lib/lit-extended.js'
+import { html, render } from './vendor/lit-html/lib/lit-extended.js'
 
 export class Callout extends HTMLElement {
   // Monitor the 'name' attribute for changes.
