@@ -1,7 +1,7 @@
 import './button.js'
 import './callout.js'
 
-import { html, render } from './node_modules/lit-html/lib/lit-extended.js'
+import { html, render } from './vendor/lit-html/lib/lit-extended.js'
 
 const handler = (e) => {
   alert('Click!')

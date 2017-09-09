@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "serve ."
+    "start": "serve .",
+    "gh-pages": "rm -rf site && mkdir -p site/vendor && cp *.{js,html} site && cp -r node_modules/lit-html site/vendor/ && gh-pages -d site"
   },
   "dependencies": {
     "lit-html": "^0.6.0"
