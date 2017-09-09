@@ -3,12 +3,12 @@ import { html, render } from './vendor/lit-html/lib/lit-extended.js'
 
 export class Callout extends HTMLElement {
   // Monitor the 'name' attribute for changes.
-  static get observedAttributes() { return ['type']; }
+  static get observedAttributes() { return ['type', 'title']; }
 
   // Respond to attribute changes.
   attributeChangedCallback(attr, oldValue, newValue) {
-    if (attr === 'type') {
-      this.type = this.getAttribute('type')
+    if (Callout.observedAttributes.includes(attr)) {
+      this[attr] = this.getAttribute(attr)
       this.invalidate()
     }
   }
@@ -58,7 +58,7 @@ export class Callout extends HTMLElement {
           background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' color='%23EB6651'%3E%3Cpath fill='currentColor' d='M7 0C3.13 0 0 3.13 0 7s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm-.75 3.75c0-.41.34-.75.75-.75s.75.34.75.75v2.5c0 .41-.34.75-.75.75s-.75-.34-.75-.75v-2.5zM7 11c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z'/%3E%3C/svg%3E");
         }
 
-        ::slotted(h1) {
+        h1 {
           display: block;
           margin: 0;
           color: #555;
@@ -71,6 +71,7 @@ export class Callout extends HTMLElement {
         }
       </style>
       <div class$="callout ${this.type || ''}">
+        <h1>${this.title}</h1>
         <slot></slot>
       </div>
     `;
