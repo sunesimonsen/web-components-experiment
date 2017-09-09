@@ -21,9 +21,8 @@ const indexTemplate = (text) => html`
       border: thin solid red;
     }
 
-
-    section > h1 { font-size: 18px; }
-    section > p { margin: 8px; }
+    h1 { font-size: 18px; }
+    p { margin: 8px; }
 
     .callouts {
       display: grid;
@@ -42,24 +41,24 @@ const indexTemplate = (text) => html`
     <h1>Callouts</h1>
     <div class='callouts'>
       <z-callout title="Callout: Standard (Multi-line)">
-        <p>
+        <z-callout-content>
           Chicharrones brooklyn cardigan marfa pour-over craft beer dreamcatcher cold-pressed brunch meggings. Live-edge disrupt narwhal irony neutra single-origin coffee, biodiesel before they sold out roof party venmo farm-to-table direct trade poke tousled aesthetic. Prism dreamcatcher glossier cloud bread blue bottle farm-to-table celiac chicharrones single-origin coffee salvia knausgaard raclette.
-        </p>
+        </z-callout-content>
       </z-callout>
       <z-callout type="success" title="Success Callout: Standard (Multi-line)">
-        <p>
+        <z-callout-content>
           Chicharrones brooklyn cardigan marfa pour-over craft beer dreamcatcher cold-pressed brunch meggings. Live-edge disrupt narwhal irony neutra single-origin coffee, biodiesel before they sold out roof party venmo farm-to-table direct trade poke tousled aesthetic. Prism dreamcatcher glossier cloud bread blue bottle farm-to-table celiac chicharrones single-origin coffee salvia knausgaard raclette.
-        </p>
+        </z-callout-content>
       </z-callout>
       <z-callout type="warning" title="Warning Callout: Standard (Multi-line)">
-        <p>
+        <z-callout-content>
           Chicharrones brooklyn cardigan marfa pour-over craft beer dreamcatcher cold-pressed brunch meggings. Live-edge disrupt narwhal irony neutra single-origin coffee, biodiesel before they sold out roof party venmo farm-to-table direct trade poke tousled aesthetic. Prism dreamcatcher glossier cloud bread blue bottle farm-to-table celiac chicharrones single-origin coffee salvia knausgaard raclette.
-        </p>
+        </z-callout-content>
       </z-callout>
       <z-callout type="error" title="Error Callout: Standard (Multi-line)">
-        <p>
+        <z-callout-content>
           Chicharrones brooklyn cardigan marfa pour-over craft beer dreamcatcher cold-pressed brunch meggings. Live-edge disrupt narwhal irony neutra single-origin coffee, biodiesel before they sold out roof party venmo farm-to-table direct trade poke tousled aesthetic. Prism dreamcatcher glossier cloud bread blue bottle farm-to-table celiac chicharrones single-origin coffee salvia knausgaard raclette.
-        </p>
+        </z-callout-content>
       </z-callout>
     </div>
   </section>

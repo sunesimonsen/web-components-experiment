@@ -7,7 +7,7 @@ export class Callout extends HTMLElement {
 
   // Respond to attribute changes.
   attributeChangedCallback(attr, oldValue, newValue) {
-    if (Callout.observedAttributes.includes(attr)) {
+    if (oldValue !== newValue && Callout.observedAttributes.includes(attr)) {
       this[attr] = this.getAttribute(attr)
       this.invalidate()
     }
@@ -66,7 +66,8 @@ export class Callout extends HTMLElement {
           font-weight: 600;
         }
 
-        ::slotted(p) {
+        ::slotted(z-callout-content) {
+          display: block;
           margin: 10px 0 0;
         }
       </style>
@@ -82,4 +83,7 @@ export class Callout extends HTMLElement {
   }
 }
 
+export class CalloutContent extends HTMLElement {}
+
 customElements.define('z-callout', Callout);
+customElements.define('z-callout-content', CalloutContent);
