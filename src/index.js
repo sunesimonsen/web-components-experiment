@@ -1,5 +1,6 @@
 import "./button.js";
 import "./callout.js";
+import "./colorSwap.js";
 
 import { LitElement, html } from "../vendor/lit-html-element/lit-element.js";
 
@@ -61,6 +62,7 @@ export class App extends LitElement {
             </z-callout-content>
           </z-callout>
         </div>
+        <z-color-swap></z-color-swap>
       </section>
     `;
   }
