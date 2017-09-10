@@ -1,12 +1,12 @@
 import './button.js'
 import './callout.js'
+import './colorSwap.js'
 
 import { html, render } from './vendor/lit-html/lib/lit-extended.js'
 
 const handler = (e) => {
   alert('Click!')
 }
-
 
 const indexTemplate = (text) => html`
   <style>
@@ -61,6 +61,10 @@ const indexTemplate = (text) => html`
         </z-callout-content>
       </z-callout>
     </div>
+  </section>
+  <section>
+    <h1>Colors</h1>
+    <z-color-swap></z-color-swap>
   </section>
 `;
 
