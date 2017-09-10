@@ -1,23 +1,9 @@
 import './button.js'
 import { html, render } from './vendor/lit-html/lib/lit-extended.js'
+import LitHtmlElement from './LitHtmlElement.js'
 
-export class Callout extends HTMLElement {
-  // Monitor the 'name' attribute for changes.
+export class Callout extends LitHtmlElement {
   static get observedAttributes() { return ['type', 'title']; }
-
-  // Respond to attribute changes.
-  attributeChangedCallback(attr, oldValue, newValue) {
-    if (oldValue !== newValue && Callout.observedAttributes.includes(attr)) {
-      this[attr] = this.getAttribute(attr)
-      this.invalidate()
-    }
-  }
-
-  constructor() {
-    super();
-    this.attachShadow({mode: 'open'});
-    this.invalidate()
-  }
 
   render() {
     return html`
@@ -76,10 +62,6 @@ export class Callout extends HTMLElement {
         <slot></slot>
       </div>
     `;
-  }
-
-  invalidate() {
-    render(this.render(), this.shadowRoot);
   }
 }
 

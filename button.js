@@ -1,12 +1,7 @@
-import { html, render } from './vendor/lit-html/lib/lit-extended.js'
+import { html } from './vendor/lit-html/lib/lit-extended.js'
+import LitHtmlElement from './LitHtmlElement.js'
 
-export class Button extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({mode: 'open'});
-    render(this.render(), this.shadowRoot);
-  }
-
+export class Button extends LitHtmlElement {
   render() {
     return html`
       <style>
