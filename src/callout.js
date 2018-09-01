@@ -1,5 +1,5 @@
 import './button.js'
-import { html, render } from '../vendor/lit-html.js';
+import { html, render } from '../node_modules/lit-html/lit-html.js';
 import LitHtmlElement from './LitHtmlElement.js'
 
 export class Callout extends LitHtmlElement {

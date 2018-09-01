@@ -5,13 +5,16 @@
   "license": "MIT",
   "scripts": {
     "start": "serve .",
-    "vendor-lit": "rollup -c rollup.config.js",
-    "gh-pages": "rm -rf site/* && cp -R index.html src site && gh-pages -d site"
+    "build": "webpack --mode=production",
+    "gh-pages": "npm run build && rm -rf site && mkdir -p site/dev && cp -R index.html src site/dev && cp -R dist site/prod && gh-pages -d site"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
-    "rollup": "0.65.0",
-    "serve": "6.4.1"
+    "html-webpack-plugin": "3.2.0",
+    "prettier": "1.14.2",
+    "serve": "6.4.1",
+    "webpack": "4.17.1",
+    "webpack-cli": "3.1.0"
   },
   "dependencies": {
     "lit-html": "0.11.0"
