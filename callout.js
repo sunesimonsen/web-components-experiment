@@ -1,5 +1,5 @@
 import './button.js'
-import { html, render } from './vendor/lit-html/lib/lit-extended.js'
+import { html, render } from 'https://unpkg.com/lit-html@0.11.0?module';
 import LitHtmlElement from './LitHtmlElement.js'
 
 export class Callout extends LitHtmlElement {
@@ -57,7 +57,7 @@ export class Callout extends LitHtmlElement {
           margin: 10px 0 0;
         }
       </style>
-      <div class$="callout ${this.type || ''}">
+      <div class="callout ${this.type || ''}">
         <h1>${this.title}</h1>
         <slot></slot>
       </div>
