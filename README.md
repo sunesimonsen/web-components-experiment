@@ -7,4 +7,4 @@ yarn install
 yarn start
 ```
 
-Demo: https://sunesimonsen.github.io/web-components-experiment/
+Demo: [development build](https://sunesimonsen.github.io/web-components-experiment/dev) [production build](https://sunesimonsen.github.io/web-components-experiment/prod)
