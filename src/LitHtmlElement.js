@@ -1,4 +1,4 @@
-import { html, render } from 'https://unpkg.com/lit-html@0.11.0?module';
+import { html, render } from '../vendor/lit-html.js';
 
 export default class LitHtmlElement extends HTMLElement {
   // Respond to attribute changes.

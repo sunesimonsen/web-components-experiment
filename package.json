@@ -5,10 +5,15 @@
   "license": "MIT",
   "scripts": {
     "start": "serve .",
+    "vendor-lit": "rollup -c rollup.config.js",
     "gh-pages": "rm -rf site/* && cp -R index.html src site && gh-pages -d site"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
+    "rollup": "0.65.0",
     "serve": "6.4.1"
+  },
+  "dependencies": {
+    "lit-html": "0.11.0"
   }
 }

@@ -1,7 +1,7 @@
 import './button.js'
 import './callout.js'
 
-import { html, render } from 'https://unpkg.com/lit-html@0.11.0?module';
+import { html, render } from '../vendor/lit-html.js';
 
 const handler = (e) => {
   alert('Click!')
