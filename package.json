@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "serve .",
-    "build": "webpack --mode=production",
-    "gh-pages": "npm run build && rm -rf site && mkdir -p site/dev && cp -R index.html src site/dev && cp -R dist site/prod && gh-pages -d site"
+    "build": "rm -rf dist && webpack --mode=production",
+    "gh-pages": "npm run build && rm -rf site && mkdir -p site/dev site/dev/vendor && cp -R index.html src site/dev && cp -R node_modules/lit-html site/dev/vendor/ && cp -R dist site/prod && gh-pages -d site"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
