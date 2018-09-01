@@ -1,4 +1,4 @@
-import { html } from './vendor/lit-html/lib/lit-extended.js'
+import { html } from 'https://unpkg.com/lit-html@0.11.0?module';
 import LitHtmlElement from './LitHtmlElement.js'
 
 export class Button extends LitHtmlElement {

@@ -5,13 +5,10 @@
   "license": "MIT",
   "scripts": {
     "start": "serve .",
-    "gh-pages": "rm -rf site && mkdir -p site/vendor && cp *.{js,html} site && cp -r node_modules/lit-html site/vendor/ && gh-pages -d site"
-  },
-  "dependencies": {
-    "lit-html": "^0.6.0"
+    "gh-pages": "rm -rf site/* && cp *.{js,html} site && gh-pages -d site"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
-    "serve": "^6.0.6"
+    "serve": "6.4.1"
   }
 }
