@@ -11,12 +11,18 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-import { directive } from '../lit-html.js';
+
+import {directive, NodePart} from '../lit-html.js';
+
 /**
- * Display `defaultContent` until `promise` resolves.
+ * Renders the result as HTML, rather than text.
+ *
+ * Note, this is unsafe to use with any user-provided input that hasn't been
+ * sanitized or escaped, as it may lead to cross-site-scripting
+ * vulnerabilities.
  */
-export const until = (promise, defaultContent) => directive((part) => {
-    part.setValue(defaultContent);
-    part.setValue(promise);
+export const unsafeHTML = (value: any) => directive((part: NodePart) => {
+  const tmp = document.createElement('template');
+  tmp.innerHTML = value;
+  part.setValue(document.importNode(tmp.content, true));
 });
-//# sourceMappingURL=until.js.map

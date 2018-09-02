@@ -11,22 +11,13 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-import { AttributeCommitter, BooleanAttributePart, EventPart, PropertyCommitter } from './parts.js';
-import { TemplateProcessor } from './template-processor.js';
-import { SVGTemplateResult, TemplateResult } from './template-result.js';
-export { BooleanAttributePart, EventPart } from './parts.js';
-export { render } from './render.js';
+import { AttributePart, defaultPartCallback, getValue, render as baseRender } from '../lit-html.js';
+export { html } from '../lit-html.js';
 /**
- * Interprets a template literal as a lit-extended HTML template.
- */
-export const html = (strings, ...values) => new TemplateResult(strings, values, 'html', templateProcessor);
-/**
- * Interprets a template literal as a lit-extended SVG template.
- */
-export const svg = (strings, ...values) => new SVGTemplateResult(strings, values, 'svg', templateProcessor);
-/**
- * A PartCallback which allows templates to set properties and declarative
- * event handlers.
+ *
+ * @param result Renders a `TemplateResult` to a container using the
+ * `extendedPartCallback` PartCallback, which allows templates to set
+ * properties and declarative event handlers.
  *
  * Properties are set by default, instead of attributes. Attribute names in
  * lit-html templates preserve case, so properties are case sensitive. If an
@@ -48,26 +39,59 @@ export const svg = (strings, ...values) => new SVGTemplateResult(strings, values
  *
  *     html`<button on-click=${(e)=> this.onClickHandler(e)}>Buy Now</button>`
  *
- * @deprecated Please use /lit-html.js instead. lit-extended will be removed in
- *     a future version.
  */
-export class LitExtendedTemplateProcessor extends TemplateProcessor {
-    handleAttributeExpressions(element, name, strings) {
-        if (name.substr(0, 3) === 'on-') {
-            const eventName = name.slice(3);
-            return [new EventPart(element, eventName)];
+export function render(result, container) {
+    baseRender(result, container, extendedPartCallback);
+}
+export const extendedPartCallback = (instance, templatePart, node) => {
+    if (templatePart.type === 'attribute') {
+        if (templatePart.rawName.startsWith('on-')) {
+            const eventName = templatePart.rawName.slice(3);
+            return new EventPart(instance, node, eventName);
         }
-        const lastChar = name.substr(name.length - 1);
-        if (lastChar === '$') {
-            const comitter = new AttributeCommitter(element, name.slice(0, -1), strings);
-            return comitter.parts;
+        if (templatePart.name.endsWith('$')) {
+            const name = templatePart.name.slice(0, -1);
+            return new AttributePart(instance, node, name, templatePart.strings);
         }
-        if (lastChar === '?') {
-            return [new BooleanAttributePart(element, name.slice(0, -1), strings)];
+        return new PropertyPart(instance, node, templatePart.rawName, templatePart.strings);
+    }
+    return defaultPartCallback(instance, templatePart, node);
+};
+export class PropertyPart extends AttributePart {
+    setValue(values, startIndex) {
+        const s = this.strings;
+        let value;
+        if (s.length === 2 && s[0] === '' && s[1] === '') {
+            // An expression that occupies the whole attribute value will leave
+            // leading and trailing empty strings.
+            value = getValue(this, values[startIndex]);
         }
-        const comitter = new PropertyCommitter(element, name, strings);
-        return comitter.parts;
+        else {
+            // Interpolation, so interpolate
+            value = this._interpolate(values, startIndex);
+        }
+        this.element[this.name] = value;
     }
 }
-export const templateProcessor = new LitExtendedTemplateProcessor();
+export class EventPart {
+    constructor(instance, element, eventName) {
+        this.instance = instance;
+        this.element = element;
+        this.eventName = eventName;
+    }
+    setValue(value) {
+        const listener = getValue(this, value);
+        const previous = this._listener;
+        if (listener === previous) {
+            return;
+        }
+        this._listener = listener;
+        if (previous != null) {
+            this.element.removeEventListener(this.eventName, previous);
+        }
+        if (listener != null) {
+            this.element.addEventListener(this.eventName, listener);
+        }
+    }
+}
 //# sourceMappingURL=lit-extended.js.map

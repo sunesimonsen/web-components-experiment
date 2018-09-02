@@ -11,8 +11,17 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
+import { directive } from '../lit-html.js';
 /**
- * @deprecated import /directives/unsafe-html.js instead
+ * Renders the result as HTML, rather than text.
+ *
+ * Note, this is unsafe to use with any user-provided input that hasn't been
+ * sanitized or escaped, as it may lead to cross-site-scripting
+ * vulnerabilities.
  */
-export * from '../directives/unsafe-html.js';
+export const unsafeHTML = (value) => directive((part) => {
+    const tmp = document.createElement('template');
+    tmp.innerHTML = value;
+    part.setValue(document.importNode(tmp.content, true));
+});
 //# sourceMappingURL=unsafe-html.js.map

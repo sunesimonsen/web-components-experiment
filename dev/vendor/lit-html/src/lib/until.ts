@@ -11,12 +11,14 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-import { directive } from '../lit-html.js';
+
+import {directive, NodePart} from '../lit-html.js';
+
 /**
  * Display `defaultContent` until `promise` resolves.
  */
-export const until = (promise, defaultContent) => directive((part) => {
-    part.setValue(defaultContent);
-    part.setValue(promise);
-});
-//# sourceMappingURL=until.js.map
+export const until = (promise: Promise<any>, defaultContent: any) =>
+    directive((part: NodePart) => {
+      part.setValue(defaultContent);
+      part.setValue(promise);
+    });

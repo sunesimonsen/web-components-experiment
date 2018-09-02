@@ -11,22 +11,13 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-import { Part } from './parts.js';
-import { TemplateProcessor } from './template-processor.js';
-import { SVGTemplateResult, TemplateResult } from './template-result.js';
-export { BooleanAttributePart, EventPart } from './parts.js';
-export { render } from './render.js';
+import { AttributePart, Part, TemplateInstance, TemplatePart, TemplateResult } from '../lit-html.js';
+export { html } from '../lit-html.js';
 /**
- * Interprets a template literal as a lit-extended HTML template.
- */
-export declare const html: (strings: TemplateStringsArray, ...values: any[]) => TemplateResult;
-/**
- * Interprets a template literal as a lit-extended SVG template.
- */
-export declare const svg: (strings: TemplateStringsArray, ...values: any[]) => SVGTemplateResult;
-/**
- * A PartCallback which allows templates to set properties and declarative
- * event handlers.
+ *
+ * @param result Renders a `TemplateResult` to a container using the
+ * `extendedPartCallback` PartCallback, which allows templates to set
+ * properties and declarative event handlers.
  *
  * Properties are set by default, instead of attributes. Attribute names in
  * lit-html templates preserve case, so properties are case sensitive. If an
@@ -48,10 +39,17 @@ export declare const svg: (strings: TemplateStringsArray, ...values: any[]) => S
  *
  *     html`<button on-click=${(e)=> this.onClickHandler(e)}>Buy Now</button>`
  *
- * @deprecated Please use /lit-html.js instead. lit-extended will be removed in
- *     a future version.
  */
-export declare class LitExtendedTemplateProcessor extends TemplateProcessor {
-    handleAttributeExpressions(element: Element, name: string, strings: string[]): Part[];
+export declare function render(result: TemplateResult, container: Element | DocumentFragment): void;
+export declare const extendedPartCallback: (instance: TemplateInstance, templatePart: TemplatePart, node: Node) => Part;
+export declare class PropertyPart extends AttributePart {
+    setValue(values: any[], startIndex: number): void;
 }
-export declare const templateProcessor: LitExtendedTemplateProcessor;
+export declare class EventPart implements Part {
+    instance: TemplateInstance;
+    element: Element;
+    eventName: string;
+    private _listener;
+    constructor(instance: TemplateInstance, element: Element, eventName: string);
+    setValue(value: any): void;
+}

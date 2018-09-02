@@ -1,7 +1,6 @@
-import { html } from '../vendor/lit-html/lit-html.js';
-import LitHtmlElement from './LitHtmlElement.js'
+import { LitElement, html } from '../vendor/lit-html-element/lit-element.js'
 
-export class Button extends LitHtmlElement {
+export class Button extends LitElement {
   render() {
     return html`
       <style>

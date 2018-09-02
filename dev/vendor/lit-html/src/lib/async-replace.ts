@@ -11,12 +11,9 @@
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
-var __asyncValues = (this && this.__asyncIterator) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator];
-    return m ? m.call(o) : typeof __values === "function" ? __values(o) : o[Symbol.iterator]();
-};
-import { directive, NodePart } from '../lit-html.js';
+
+import {directive, NodePart} from '../lit-html.js';
+
 /**
  * A directive that renders the items of an async iterable[1], replacing
  * previous values with new values, so that only one value is ever rendered
@@ -35,48 +32,46 @@ import { directive, NodePart } from '../lit-html.js';
  * @param mapper An optional function that maps from (value, index) to another
  *     value. Useful for generating templates for each item in the iterable.
  */
-export const asyncReplace = (value, mapper) => directive(async (part) => {
-    // If we've already set up this particular iterable, we don't need
-    // to do anything.
-    if (value === part._previousValue) {
-        return;
-    }
-    // We nest a new part to keep track of previous item values separately
-    // of the iterable as a value itself.
-    const itemPart = new NodePart(part.instance, part.startNode, part.endNode);
-    part._previousValue = itemPart;
-    let i = 0;
-    try {
-        for (var value_1 = __asyncValues(value), value_1_1; value_1_1 = await value_1.next(), !value_1_1.done;) {
-            let v = await value_1_1.value;
+export const asyncReplace =
+    <T>(value: AsyncIterable<T>, mapper?: (v: T, index?: number) => any) =>
+        directive(async (part: NodePart) => {
+          // If we've already set up this particular iterable, we don't need
+          // to do anything.
+          if (value === part._previousValue) {
+            return;
+          }
+
+          // We nest a new part to keep track of previous item values separately
+          // of the iterable as a value itself.
+          const itemPart =
+              new NodePart(part.instance, part.startNode, part.endNode);
+
+          part._previousValue = itemPart;
+
+          let i = 0;
+
+          for await (let v of value) {
             // When we get the first value, clear the part. This let's the previous
             // value display until we can replace it.
             if (i === 0) {
-                part.clear();
+              part.clear();
             }
+
             // Check to make sure that value is the still the current value of
             // the part, and if not bail because a new value owns this part
             if (part._previousValue !== itemPart) {
-                break;
+              break;
             }
+
             // As a convenience, because functional-programming-style
             // transforms of iterables and async iterables requires a library,
             // we accept a mapper function. This is especially convenient for
             // rendering a template for each item.
             if (mapper !== undefined) {
-                v = mapper(v, i);
+              v = mapper(v, i);
             }
+
             itemPart.setValue(v);
             i++;
-        }
-    }
-    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-    finally {
-        try {
-            if (value_1_1 && !value_1_1.done && (_a = value_1.return)) await _a.call(value_1);
-        }
-        finally { if (e_1) throw e_1.error; }
-    }
-    var e_1, _a;
-});
-//# sourceMappingURL=async-replace.js.map
+          }
+        });
