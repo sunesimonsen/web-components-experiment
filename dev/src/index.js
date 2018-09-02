@@ -37,6 +37,12 @@ export class App extends LitElement {
           grid-gap: 20px;
           margin: 20px;
         }
+
+        @media only screen and (max-width : 800px) {
+          .callouts {
+            grid-template-columns: repeat(1, 1fr);
+          }
+        }
       </style>
       <section>
         <h1>Buttons</h1>
