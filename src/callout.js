@@ -1,9 +1,21 @@
 import './button.js'
-import { html, render } from '../vendor/lit-html/lit-html.js';
-import LitHtmlElement from './LitHtmlElement.js'
+import { LitElement, html } from '../vendor/lit-html-element/lit-element.js'
 
-export class Callout extends LitHtmlElement {
-  static get observedAttributes() { return ['type', 'title']; }
+export class Callout extends LitElement {
+  static get properties() {
+    return {
+      title: {
+        type: String,
+        attrName: 'title',
+        value: ""
+      },
+      type: {
+        type: String,
+        attrName: 'type',
+        value: ""
+      }
+    }
+  }
 
   render() {
     return html`
@@ -57,7 +69,7 @@ export class Callout extends LitHtmlElement {
           margin: 10px 0 0;
         }
       </style>
-      <div class="callout ${this.type || ''}">
+      <div class$="callout ${this.type}">
         <h1>${this.title}</h1>
         <slot></slot>
       </div>
@@ -67,5 +79,5 @@ export class Callout extends LitHtmlElement {
 
 export class CalloutContent extends HTMLElement {}
 
-customElements.define('z-callout', Callout);
+customElements.define('z-callout', Callout.withProperties());
 customElements.define('z-callout-content', CalloutContent);

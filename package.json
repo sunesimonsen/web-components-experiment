@@ -6,7 +6,8 @@
   "scripts": {
     "start": "serve .",
     "build": "rm -rf dist && webpack --mode=production",
-    "gh-pages": "npm run build && rm -rf site && mkdir -p site/dev site/dev/vendor && cp -R index.html src site/dev && cp -R node_modules/lit-html site/dev/vendor/ && cp -R dist site/prod && gh-pages -d site"
+    "build-site": "npm run build && rm -rf site && mkdir -p site/dev site/dev/vendor && cp -R index.html src site/dev && cp -R node_modules/lit-html node_modules/lit-html-element site/dev/vendor/ && cp -R dist site/prod",
+    "gh-pages": "npm run build-site && gh-pages -d site"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
@@ -17,6 +18,6 @@
     "webpack-cli": "3.1.0"
   },
   "dependencies": {
-    "lit-html": "0.11.0"
+    "lit-html-element": "0.9.1"
   }
 }
