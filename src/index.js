@@ -23,7 +23,13 @@ export class App extends LitElement {
         }
 
         h1 { font-size: 18px; }
-        p { margin: 8px; }
+        p {
+          margin: 8px;
+        }
+
+        z-button.big {
+          --button-scale: 1.5;
+        }
 
         .callouts {
           display: grid;
@@ -35,7 +41,7 @@ export class App extends LitElement {
       <section>
         <h1>Buttons</h1>
         <p>This is a custom button: <z-button onclick=${handler}><strong>button</strong></z-button></p>
-        <p>This is another custom button: <z-button onclick=${handler}>Another button</z-button></p>
+        <p>This is another custom button: <z-button class='big' onclick=${handler}>Another button</z-button></p>
         <p>This is a normal button: <button onclick=${handler}><strong>button</strong></button></p>
       </section>
       <section>

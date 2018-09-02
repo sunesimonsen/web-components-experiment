@@ -1,4 +1,4 @@
-import { LitElement, html } from '../vendor/lit-html-element/lit-element.js'
+import { LitElement, html } from "../vendor/lit-html-element/lit-element.js";
 
 export class Button extends LitElement {
   render() {
@@ -13,7 +13,7 @@ export class Button extends LitElement {
           padding: 0.6em 2.25em;
           text-align: center;
           color: #30aabc;
-          font-size: 12px;
+          font-size: calc(12px * var(--button-scale, 1));
           font-weight: 400;
           box-sizing: border-box;
           user-select: none;
@@ -44,4 +44,4 @@ export class Button extends LitElement {
   }
 }
 
-customElements.define('z-button', Button);
+customElements.define("z-button", Button);
