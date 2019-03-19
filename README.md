@@ -1,6 +1,6 @@
 # web-components-experiment
 
-This only works in the latest Chrome.
+This only works in the latest Firefox and Chrome.
 
 ```
 yarn install
